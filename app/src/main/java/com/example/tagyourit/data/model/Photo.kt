@@ -1,4 +1,4 @@
-package com.example.tagyourit.model
+package com.example.tagyourit.data.model
 
 import android.os.Parcelable
 import com.squareup.moshi.JsonClass
