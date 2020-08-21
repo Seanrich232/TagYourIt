@@ -14,6 +14,6 @@ data class Photo(
     val photographer: String? = null,
     val photographer_id: Int? = null,
     val photographer_url: String? = null,
-    val src: Src? = null,
+    val src: Size? = null,
     val url: String? = null
 ) : Parcelable

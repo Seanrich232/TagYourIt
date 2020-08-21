@@ -7,7 +7,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 @JsonClass(generateAdapter = true)
-data class Src(
+data class Size(
     val landscape: String? = null,
     val large: String? = null,
     val large2x: String? = null,

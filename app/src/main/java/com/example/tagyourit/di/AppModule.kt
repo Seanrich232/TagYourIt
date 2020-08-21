@@ -1,6 +1,7 @@
 package com.example.tagyourit.di
 
 import com.example.tagyourit.data.api.PhotoService
+import com.example.tagyourit.data.repo.PhotoRepo
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
@@ -26,5 +27,8 @@ object AppModule {
 
     @Provides
     fun providePhotoService(retrofit: Retrofit): PhotoService = retrofit.create(PhotoService::class.java)
+
+    @Provides
+    fun provideRepository() = PhotoRepo(providePhotoService(provideRetrofit(provideMoshi())))
 
 }
