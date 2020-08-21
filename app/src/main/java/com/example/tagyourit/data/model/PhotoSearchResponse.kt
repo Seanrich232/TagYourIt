@@ -6,7 +6,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 @JsonClass(generateAdapter = true)
-data class SearchResponse(
+data class PhotoSearchResponse(
     val next_page: String? = null,
     val page: Int? = null,
     val per_page: Int? = null,
