@@ -4,11 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import com.example.tagyourit.R
-<<<<<<< HEAD
-=======
 import com.example.tagyourit.databinding.ActivityMainBinding
 import com.example.tagyourit.di.AppModule
->>>>>>> nestor
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
