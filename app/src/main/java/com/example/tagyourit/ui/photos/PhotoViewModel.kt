@@ -28,7 +28,7 @@ class PhotoViewModel @ViewModelInject constructor(
     fun fetchPhotos() {
         toggleLoading(_photos)
         viewModelScope.launch {
-                repository.getPhotos(10, 1)
+                repository.getPhotosTest("nature")
         }
     }
 

@@ -12,4 +12,7 @@ class PhotoRepo @Inject constructor(
 
     suspend fun getPhotos(perPage: Int, page: Int) : Response<PhotoSearchResponse> =
         photoDataSource.getPhotos(10, 1)
+
+    suspend fun getPhotosTest(theme: String) : Response<PhotoSearchResponse> =
+        photoDataSource.getPhotosTest(theme)
 }

@@ -13,4 +13,9 @@ interface PhotoService {
         @Query("page") page: Int
     ): Response<PhotoSearchResponse>
 
+    @GET("search")
+    suspend fun getPhotosTest(
+        @Query("nature") theme: String
+    ): Response<PhotoSearchResponse>
+
 }
