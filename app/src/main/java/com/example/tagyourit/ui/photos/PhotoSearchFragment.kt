@@ -9,10 +9,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.res.ColorStateListInflaterCompat.inflate
 import androidx.fragment.app.viewModels
+import com.example.tagyourit.databinding.FragmentPhotoSearchBinding
 
 class PhotoSearchFragment : Fragment() {
 
-    private lateinit var binding: PhotoSearchFragment
+    private lateinit var binding: FragmentPhotoSearchBinding
     private val viewModel: PhotoViewModel by viewModels()
     private lateinit var adapter: PhotoAdapter
 
@@ -21,7 +22,7 @@ class PhotoSearchFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = PhotoSearchFragment.inflate(inflater, container, false)
+        binding = FragmentPhotoSearchBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -32,7 +33,7 @@ class PhotoSearchFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        adapter = PhotoAdapter(this)
+        adapter = PhotoAdapter()
 
     }
 
