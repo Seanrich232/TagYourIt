@@ -8,5 +8,6 @@ class   PhotoViewModel @ViewModelInject constructor(
     private val repository: PhotoRepo
 ) : ViewModel() {
 
-    val photos = repository.getPhotos()
+    val photos = repository.getPhotos(10, 1)
+
 }
