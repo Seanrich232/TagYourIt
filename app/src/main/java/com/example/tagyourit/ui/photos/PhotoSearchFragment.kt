@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.example.tagyourit.databinding.FragmentPhotoSearchBinding
-import com.example.tagyourit.databinding.FragmentPhotoSearchBinding.*
 
 class PhotoSearchFragment : Fragment(), PhotoAdapter.PhotoItemListener {
 
@@ -20,7 +19,7 @@ class PhotoSearchFragment : Fragment(), PhotoAdapter.PhotoItemListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = inflate(inflater, container, false)
+        binding = FragmentPhotoSearchBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -31,8 +30,7 @@ class PhotoSearchFragment : Fragment(), PhotoAdapter.PhotoItemListener {
     }
 
     private fun setupRecyclerView() {
-        adapter = PhotoAdapter(this)
-
+//        adapter = PhotoAdapter()
     }
 
     private fun setupObservers() {
