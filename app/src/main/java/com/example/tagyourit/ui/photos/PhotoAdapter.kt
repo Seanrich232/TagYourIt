@@ -9,9 +9,7 @@ import com.bumptech.glide.Glide
 import com.example.tagyourit.data.model.Photo
 import com.example.tagyourit.databinding.PhotoItemBinding
 
-
 class PhotoAdapter(private val listener: PhotoItemListener): RecyclerView.Adapter<PhotoViewHolder>() {
-
 
     private val photoList = ArrayList<Photo>()
 
