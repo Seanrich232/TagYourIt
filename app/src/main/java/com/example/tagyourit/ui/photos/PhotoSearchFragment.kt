@@ -4,15 +4,14 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.inflate
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.content.res.ColorStateListInflaterCompat.inflate
 import androidx.fragment.app.viewModels
+import com.example.tagyourit.databinding.FragmentPhotoSearchBinding
+import com.example.tagyourit.databinding.FragmentPhotoSearchBinding.*
 
-class PhotoSearchFragment : Fragment() {
+class PhotoSearchFragment : Fragment(), PhotoAdapter.PhotoItemListener {
 
-    private lateinit var binding: PhotoSearchFragment
+    private lateinit var binding: FragmentPhotoSearchBinding
     private val viewModel: PhotoViewModel by viewModels()
     private lateinit var adapter: PhotoAdapter
 
@@ -21,7 +20,7 @@ class PhotoSearchFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = PhotoSearchFragment.inflate(inflater, container, false)
+        binding = inflate(inflater, container, false)
         return binding.root
     }
 
@@ -38,6 +37,10 @@ class PhotoSearchFragment : Fragment() {
 
     private fun setupObservers() {
 
+    }
+
+    override fun onClickedPhoto(photoId: Int?) {
+        TODO("Not yet implemented")
     }
 
 
