@@ -4,14 +4,11 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.inflate
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.content.res.ColorStateListInflaterCompat.inflate
 import androidx.fragment.app.viewModels
 import com.example.tagyourit.databinding.FragmentPhotoSearchBinding
 
-class PhotoSearchFragment : Fragment() {
+class PhotoSearchFragment : Fragment(), PhotoAdapter.PhotoItemListener {
 
     private lateinit var binding: FragmentPhotoSearchBinding
     private val viewModel: PhotoViewModel by viewModels()
@@ -33,12 +30,15 @@ class PhotoSearchFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        adapter = PhotoAdapter()
-
+//        adapter = PhotoAdapter()
     }
 
     private fun setupObservers() {
 
+    }
+
+    override fun onClickedPhoto(photoId: Int?) {
+        TODO("Not yet implemented")
     }
 
 
