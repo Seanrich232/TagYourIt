@@ -8,8 +8,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.tagyourit.data.model.Photo
 import com.example.tagyourit.databinding.FragmentPhotoSearchBinding
 import com.example.tagyourit.utils.Resource
+import com.example.tagyourit.utils.extensions.toast
 import java.util.Observer
 
 class PhotoSearchFragment : Fragment(), PhotoAdapter.PhotoItemListener {
@@ -41,23 +43,19 @@ class PhotoSearchFragment : Fragment(), PhotoAdapter.PhotoItemListener {
     }
 
     private fun setupObservers() {
-        viewModel.photos.observe(viewLifecycleOwner, Observer {
-            when (it.status) {
+        viewModel.photoObservable.observe(viewLifecycleOwner, { resource ->
+            when (resource.status) {
                 Resource.Status.SUCCESS -> {
-                    binding.progressBar.visibility = View.GONE
-                    if (!it.data.isNullOrEmpty()) adapter.setItems(ArrayList(it.data))
+                    resource.data?.photos?.let { list -> adapter.setPhotos(list as MutableList<Photo>) }
                 }
-                Resource.Status.ERROR ->
-                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
-
-                Resource.Status.LOADING ->
-                    binding.progressBar.visibility = View.VISIBLE
+                Resource.Status.ERROR -> {
+                    context?.toast("There was an error loading the next page")
+                }
             }
         })
-
     }
 
-    override fun onClickedPhoto(photoId: Int) {
+    override fun onClickedPhoto(photoId: Int?) {
         TODO("Not yet implemented")
     }
 

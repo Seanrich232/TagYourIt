@@ -12,4 +12,5 @@ interface PhotoService {
         @Query("per_page") per_page: Int,
         @Query("page") page: Int
     ): Response<PhotoSearchResponse>
+
 }
