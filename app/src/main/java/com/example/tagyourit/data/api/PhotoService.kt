@@ -3,19 +3,17 @@ package com.example.tagyourit.data.api
 import com.example.tagyourit.data.model.PhotoSearchResponse
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.Query
 
 interface PhotoService {
 
     @GET("query")
     suspend fun getPhotos(
+        @Query("search")search: String,
         @Query("per_page") per_page: Int,
-        @Query("page") page: Int
-    ): Response<PhotoSearchResponse>
-
-    @GET("search")
-    suspend fun getPhotosTest(
-        @Query("nature") theme: String
+        @Query("page") page: Int,
+        @Header("Authorization") api_key: String
     ): Response<PhotoSearchResponse>
 
 }

@@ -6,5 +6,12 @@ class PhotoDataSource @Inject constructor(
     private val photoService: PhotoService
 ) : BaseDataSource() {
 
-    suspend fun getPhotos(perPage: Int, page: Int) = getResult { photoService.getPhotos(perPage, page) }
+    suspend fun getPhotos(search: String, perPage: Int, page: Int, api_key: String) = getResult {
+        photoService.getPhotos(
+            search,
+            perPage,
+            page,
+            api_key
+        )
+    }
 }

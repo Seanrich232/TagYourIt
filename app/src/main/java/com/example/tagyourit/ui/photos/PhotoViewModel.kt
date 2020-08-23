@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.tagyourit.BuildConfig.API_KEY
 import com.example.tagyourit.data.model.PhotoSearchResponse
 import com.example.tagyourit.data.repo.PhotoRepo
 import kotlinx.coroutines.launch
@@ -25,21 +26,31 @@ class PhotoViewModel @ViewModelInject constructor(
         loadPhotos()
     }
 
-    fun fetchPhotos() {
+    private fun fetchPhotos(search: String, per_page: Int? = null, pageNum: Int? = null) {
         toggleLoading(_photos)
         viewModelScope.launch {
-                repository.getPhotosTest("nature")
+            val response = when{
+                search.isNotEmpty() -> pageNum?.let { repository.getPhotos(search, 10,1, API_KEY) }
+                else -> repository.getPhotos("dogs", 10, 1, API_KEY)
+            }
+            if (response != null) {
+                handleResponse(_photos, response)
+            }
+
         }
+
     }
 
-    fun loadPhotos(loadOption: LOAD? = null) {
+    private fun loadPhotos(loadOption: LOAD? = null) {
         _photos.value?.data?.let {
             val link = when (loadOption) {
                 LOAD.NEXT -> it.next_page
                 else -> null
             }
-            fetchPhotos()
-        } ?: fetchPhotos()
+            if (link != null) {
+                fetchPhotos(link)
+            }
+        } ?: fetchPhotos("Dogs")
     }
 
     private fun <T> toggleLoading(mutableLiveData: MutableLiveData<Resource<T>>) {
@@ -48,7 +59,7 @@ class PhotoViewModel @ViewModelInject constructor(
 
     private fun <T> handleResponse(
         mutableLiveData: MutableLiveData<Resource<T>>,
-        response: Response<T>
+        response: Response<PhotoSearchResponse>
     ) {
         val resource = when {
             response.successWithData() -> Resource.success(response.body())

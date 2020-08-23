@@ -7,13 +7,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tagyourit.data.model.Photo
 import com.example.tagyourit.databinding.FragmentPhotoSearchBinding
 import com.example.tagyourit.utils.Resource
 import com.example.tagyourit.utils.extensions.toast
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.Observer
 
+@AndroidEntryPoint
 class PhotoSearchFragment : Fragment(), PhotoAdapter.PhotoItemListener {
 
     private lateinit var binding: FragmentPhotoSearchBinding
