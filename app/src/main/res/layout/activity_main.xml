@@ -6,10 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".ui.MainActivity">
 
-<<<<<<< HEAD
 
-=======
->>>>>>> f1c7e6416f879435a4abd8b0658723bbd7ecd1ef
     <androidx.fragment.app.FragmentContainerView
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

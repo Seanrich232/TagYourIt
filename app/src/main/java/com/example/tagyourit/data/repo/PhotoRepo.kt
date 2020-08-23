@@ -18,9 +18,11 @@ class PhotoRepo @Inject constructor(
 //    suspend fun getPhotos(perPage: Int, page: Int) : Resource<PhotoSearchResponse> =
 //        photoDataSource.getPhotos(10, 1)
 
-    fun getPhotos(perPage: Int, page: Int)= performGetOperation(
+    fun getPhotos(perPage: Int, page: Int) = performGetOperation (
         databaseQuery = { localDataSource.getAllPhotos() },
         networkCall = { photoDataSource.getPhotos(10,1)}
     )
+
+
 
 }
