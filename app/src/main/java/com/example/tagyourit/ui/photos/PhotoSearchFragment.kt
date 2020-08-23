@@ -9,13 +9,12 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.tagyourit.data.model.Photo
 import com.example.tagyourit.databinding.FragmentPhotoSearchBinding
+import dagger.hilt.android.AndroidEntryPoint
 import com.example.tagyourit.utils.Resource
 import com.example.tagyourit.utils.extensions.toast
-import dagger.hilt.android.AndroidEntryPoint
-import java.util.Observer
 
 @AndroidEntryPoint
 class PhotoSearchFragment : Fragment(), PhotoAdapter.PhotoItemListener {
@@ -43,24 +42,25 @@ class PhotoSearchFragment : Fragment(), PhotoAdapter.PhotoItemListener {
         adapter = PhotoAdapter(this)
         binding.rvPhoto.layoutManager = LinearLayoutManager(requireContext())
         binding.rvPhoto.adapter = adapter
+    }
 
+    override fun onClickedPhoto(photoId: Int?) {
+        adapter = PhotoAdapter(this)
+        binding.rvPhoto.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvPhoto.adapter = adapter
     }
 
     private fun setupObservers() {
-        viewModel.photoObservable.observe(viewLifecycleOwner, { resource ->
+        viewModel.photos.observe(viewLifecycleOwner, Observer { resource ->
             when (resource.status) {
                 Resource.Status.SUCCESS -> {
-                    resource.data?.photos?.let { list -> adapter.setPhotos(list as MutableList<Photo>) }
+//                    resource.data?.photos?.let { list -> adapter.setPhotos(list as MutableList<Photo>) }
                 }
                 Resource.Status.ERROR -> {
                     context?.toast("There was an error loading the next page")
                 }
             }
         })
-    }
-
-    override fun onClickedPhoto(photoId: Int?) {
-        TODO("Not yet implemented")
     }
 
 

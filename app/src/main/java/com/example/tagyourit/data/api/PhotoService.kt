@@ -15,5 +15,4 @@ interface PhotoService {
         @Query("page") page: Int,
         @Header("Authorization") api_key: String
     ): Response<PhotoSearchResponse>
-
 }
