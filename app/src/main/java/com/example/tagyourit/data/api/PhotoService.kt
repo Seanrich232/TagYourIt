@@ -9,13 +9,7 @@ interface PhotoService {
 
     @GET("query")
     suspend fun getPhotos(
-        @Query("per_page") per_page: Int,
-        @Query("page") page: Int
+        @Query("per_page") pageNum: Int,
+        @Query("page") count: Int
     ): Response<PhotoSearchResponse>
-
-    @GET("search")
-    suspend fun getPhotosTest(
-        @Query("nature") theme: String
-    ): Response<PhotoSearchResponse>
-
 }
