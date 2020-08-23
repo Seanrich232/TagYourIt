@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Projects-TagYourIt-app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Projects-TagYourIt-app.iml" group="TagYourIt/app" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/TagYourIt.iml" filepath="$PROJECT_DIR$/.idea/modules/TagYourIt.iml" group="TagYourIt" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/TagYourIt-app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/TagYourIt-app.iml" group="TagYourIt/app" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/app.iml" group="TagYourIt/app" />
     </modules>
   </component>

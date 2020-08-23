@@ -1,5 +1,8 @@
 package com.example.tagyourit.utils
 
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
+
 data class Resource<out T>(val status: Status, val data: T?, val message: String?) {
 
     enum class Status {

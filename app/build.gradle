@@ -3,6 +3,8 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: "androidx.navigation.safeargs.kotlin"
+apply plugin: "dagger.hilt.android.plugin"
+
 
 android {
     compileSdkVersion 30
@@ -16,7 +18,15 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += ["room.schemaLocation":
+                                     "$projectDir/schemas".toString()]
+            }
+        }
     }
+
 
 
     compileOptions {
@@ -43,6 +53,7 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation "androidx.core:core-ktx:$version_core"
+    implementation 'androidx.room:room-runtime:2.2.5'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
@@ -91,11 +102,24 @@ dependencies {
 
     //Hilt
     implementation 'com.google.dagger:hilt-android:2.28.1-alpha'
-    implementation "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha01"
     kapt 'com.google.dagger:hilt-android-compiler:2.28.1-alpha'
+    implementation "android.arch.lifecycle:extensions:1.1.1"
+    annotationProcessor "android.arch.lifecycle:compiler:1.1.1"
+    implementation "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha01"
     kapt "androidx.hilt:hilt-compiler:1.0.0-alpha01"
+
+
+    // For instrumentation tests
+    androidTestImplementation  'com.google.dagger:hilt-android-testing:2.28.1-alpha'
+    kaptAndroidTest 'com.google.dagger:hilt-android-compiler:2.28.1-alpha'
+
+    // For local unit tests
+    testImplementation 'com.google.dagger:hilt-android-testing:2.28.1-alpha'
+    kaptTest 'com.google.dagger:hilt-android-compiler:2.28.1-alpha'
+
 
     //Timber
     implementation 'com.jakewharton.timber:timber:4.7.1'
 
 }
+
