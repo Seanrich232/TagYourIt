@@ -8,9 +8,9 @@ import retrofit2.http.Query
 
 interface PhotoService {
 
-    @GET("query")
+    @GET("search")
     suspend fun getPhotos(
-        @Query("search")search: String,
+        @Query("query") search: String,
         @Query("per_page") per_page: Int,
         @Query("page") page: Int,
         @Header("Authorization") api_key: String

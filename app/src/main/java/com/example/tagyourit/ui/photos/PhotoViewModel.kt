@@ -26,16 +26,14 @@ class PhotoViewModel @ViewModelInject constructor(
         loadPhotos()
     }
 
-    private fun fetchPhotos(search: String, per_page: Int? = null, pageNum: Int? = null) {
+    private fun fetchPhotos(url: String = "", pageNum: Int? = null) {
         toggleLoading(_photos)
         viewModelScope.launch {
             val response = when{
-                search.isNotEmpty() -> pageNum?.let { repository.getPhotos(search, 10,1, API_KEY) }
-                else -> repository.getPhotos("dogs", 10, 1, API_KEY)
+                url.isNotEmpty() -> pageNum?.let { repository.getPhotos("people", 10, 1, API_KEY) }
+                else -> repository.getPhotos("people",2,1, API_KEY)
             }
-            if (response != null) {
-                handleResponse(_photos, response)
-            }
+            handleResponse(_photos, response)
 
         }
 
@@ -50,7 +48,7 @@ class PhotoViewModel @ViewModelInject constructor(
             if (link != null) {
                 fetchPhotos(link)
             }
-        } ?: fetchPhotos("Dogs")
+        } ?: fetchPhotos()
     }
 
     private fun <T> toggleLoading(mutableLiveData: MutableLiveData<Resource<T>>) {
@@ -59,10 +57,10 @@ class PhotoViewModel @ViewModelInject constructor(
 
     private fun <T> handleResponse(
         mutableLiveData: MutableLiveData<Resource<T>>,
-        response: Response<PhotoSearchResponse>
+        response: Response<PhotoSearchResponse>?
     ) {
         val resource = when {
-            response.successWithData() -> Resource.success(response.body())
+            response?.successWithData()!! -> Resource.success(response.body())
             else -> Resource.error("Something went wrong: ${response.message()}")
         }
         mutableLiveData.postValue(resource as Resource<T>?)
