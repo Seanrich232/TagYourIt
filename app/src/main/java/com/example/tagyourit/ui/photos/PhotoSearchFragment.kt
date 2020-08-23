@@ -54,7 +54,7 @@ class PhotoSearchFragment : Fragment(), PhotoAdapter.PhotoItemListener {
         viewModel.photos.observe(viewLifecycleOwner, Observer { resource ->
             when (resource.status) {
                 Resource.Status.SUCCESS -> {
-//                    resource.data?.photos?.let { list -> adapter.setPhotos(list as MutableList<Photo>) }
+//                   resource.data?.photos?.let { list -> adapter.setPhotos(list as MutableList<Photo>) }
                 }
                 Resource.Status.ERROR -> {
                     context?.toast("There was an error loading the next page")
