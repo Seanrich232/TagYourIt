@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.example.tagyourit.data.model.Photo
 import com.example.tagyourit.databinding.PhotoItemBinding
+import com.example.tagyourit.utils.extensions.loadUrl
 
 class PhotoAdapter(private val listener: PhotoItemListener) :
     RecyclerView.Adapter<PhotoViewHolder>() {
@@ -50,14 +51,10 @@ class PhotoViewHolder(
         vBind.root.setOnClickListener(this)
     }
 
-    @SuppressLint("SetTextI18n")
     fun bind(item: Photo) {
         this.photo = item
         vBind.TvPhotographer.text = item.photographer
-        Glide.with(vBind.root)
-            .load(item.src?.small)
-            .transform(CircleCrop())
-            .into(vBind.IvPhoto)
+        vBind.IvPhoto.loadUrl(item.src?.small)
     }
 
     override fun onClick(v: View?) {
