@@ -55,7 +55,7 @@ class PhotoViewHolder(
         this.photo = item
         vBind.TvPhotographer.text = item.photographer
         Glide.with(vBind.root)
-            .load(item.url)
+            .load(item.src?.small)
             .transform(CircleCrop())
             .into(vBind.IvPhoto)
     }
