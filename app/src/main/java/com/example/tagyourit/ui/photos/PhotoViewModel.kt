@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.tagyourit.BuildConfig.API_KEY
 import com.example.tagyourit.data.model.PhotoSearchResponse
 import com.example.tagyourit.data.repo.PhotoRepo
 import kotlinx.coroutines.launch
