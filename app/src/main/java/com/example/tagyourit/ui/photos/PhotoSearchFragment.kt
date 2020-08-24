@@ -6,20 +6,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.rickandmorty.utils.autoCleared
+import com.example.tagyourit.R
 import com.example.tagyourit.databinding.FragmentPhotoSearchBinding
 import dagger.hilt.android.AndroidEntryPoint
 import com.example.tagyourit.utils.Resource
 import com.example.tagyourit.utils.extensions.toast
+import timber.log.Timber
 
 @AndroidEntryPoint
 class PhotoSearchFragment : Fragment(), PhotoAdapter.PhotoItemListener {
 
-    private lateinit var binding: FragmentPhotoSearchBinding
+    private var binding: FragmentPhotoSearchBinding by autoCleared()
     private val viewModel: PhotoViewModel by viewModels()
     private lateinit var adapter: PhotoAdapter
 
@@ -34,8 +39,8 @@ class PhotoSearchFragment : Fragment(), PhotoAdapter.PhotoItemListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupRecyclerView()
         setupObservers()
+        setupRecyclerView()
     }
 
     private fun setupRecyclerView() {
@@ -51,13 +56,13 @@ class PhotoSearchFragment : Fragment(), PhotoAdapter.PhotoItemListener {
     }
 
     private fun setupObservers() {
-        viewModel.photos.observe(viewLifecycleOwner, Observer { resource ->
-            when (resource.status) {
+        viewModel.photos.observe(viewLifecycleOwner, Observer {
+            when (it.status) {
                 Resource.Status.SUCCESS -> {
-//                   resource.data?.photos?.let { list -> adapter.setPhotos(list as MutableList<Photo>) }
+                    if (!it.data.isNullOrEmpty()) adapter.setPhotos(ArrayList(it.data))
                 }
                 Resource.Status.ERROR -> {
-                    context?.toast("There was an error loading the next page")
+                    context?.toast(it.message)
                 }
             }
         })

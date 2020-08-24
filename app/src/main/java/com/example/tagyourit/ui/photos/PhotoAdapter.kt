@@ -3,6 +3,7 @@ package com.example.tagyourit.ui.photos
 import android.annotation.SuppressLint
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +15,7 @@ import com.example.tagyourit.databinding.PhotoItemBinding
 import com.example.tagyourit.utils.TYPE
 
 class PhotoAdapter(private val listener: PhotoItemListener) :
-    RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder>() {
+    RecyclerView.Adapter<PhotoViewHolder>() {
 
     private val items: MutableList<Photo> = mutableListOf()
 
@@ -22,57 +23,51 @@ class PhotoAdapter(private val listener: PhotoItemListener) :
         fun onClickedPhoto(photoId: Int?)
     }
 
-    fun setPhotos(photos: MutableList<Photo>) {
+    fun setPhotos(photos: ArrayList<Photo>) {
         this.items.clear()
         this.items.addAll(photos)
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):
-            PhotoViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotoViewHolder {
         val binding: PhotoItemBinding =
             PhotoItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return PhotoViewHolder(binding, listener)
     }
 
+    override fun getItemCount(): Int = items.size
+
     override fun onBindViewHolder(holder: PhotoViewHolder, position: Int) =
         holder.bind(items[position])
 
-    override fun getItemCount(): Int = items.size
+}
 
+class PhotoViewHolder(
+    private val vBind: PhotoItemBinding,
+    private val listener: PhotoAdapter.PhotoItemListener
+) : RecyclerView.ViewHolder(vBind.root),
+    View.OnClickListener {
 
-    class PhotoViewHolder(
-        private val vBind: PhotoItemBinding,
-        private val listener: PhotoAdapter.PhotoItemListener
-    ) :
-        RecyclerView.ViewHolder(vBind.root),
+    private lateinit var photo: Photo
 
-        View.OnClickListener {
+    init {
+        vBind.root.setOnClickListener(this)
 
-        private lateinit var photo: Photo
+    }
 
-        init {
-            vBind.root.setOnClickListener(this)
-        }
+    @SuppressLint("SetTextI18n")
+    fun bind(item: Photo) {
+        this.photo = item
+        vBind.TvPhotographer.text = item.photographer
+        Log.i("PHOTOVIEWHOLDER", photo.toString())
+        Glide.with(vBind.root)
+            .load(item.url)
+            .transform(CircleCrop())
+            .into(vBind.IvPhoto)
+    }
 
-        @SuppressLint("SetTextI18n")
-        fun bind(item: Photo) {
-            this.photo = item
-            Glide.with(vBind.root)
-                .load(item.url)
-                .transform(CircleCrop())
-                .into(vBind.image)
-        }
-
-        fun load(photo: Photo) {
-            this.photo = photo
-            Glide.with(vBind.root)
-                .load(photo.src?.original)
-                .into(vBind.image)
-        }
-
-        override fun onClick(v: View?) {
-            listener.onClickedPhoto(photo.id)
-        }
+    override fun onClick(v: View?) {
+        listener.onClickedPhoto(photo.id)
     }
 }
+

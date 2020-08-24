@@ -1,12 +1,14 @@
 package com.example.tagyourit.data.model
 
 import android.os.Parcelable
+import androidx.room.Entity
 import com.squareup.moshi.JsonClass
 import kotlinx.android.parcel.Parcelize
 
 
 @Parcelize
 @JsonClass(generateAdapter = true)
+@Entity(tableName = "sizes")
 data class Size(
     val landscape: String? = null,
     val large: String? = null,
