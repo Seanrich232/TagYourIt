@@ -1,9 +1,11 @@
 package com.example.tagyourit.data.api
 
+import com.example.tagyourit.data.model.Photo
 import com.example.tagyourit.data.model.PhotoSearchResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Header
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface PhotoService {
@@ -15,4 +17,10 @@ interface PhotoService {
         @Query("page") page: Int,
         @Header("Authorization") api_key: String
     ): Response<PhotoSearchResponse>
+
+    @GET("photos/{id}")
+    suspend fun getPhoto(
+        @Path("id") id: Int,
+        @Header("Authorization") api_key: String
+    ): Response<Photo>
 }

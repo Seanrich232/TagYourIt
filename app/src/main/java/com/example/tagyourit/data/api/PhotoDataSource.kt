@@ -14,4 +14,6 @@ class PhotoDataSource @Inject constructor(
             api_key
         )
     }
+    suspend fun getPhoto(id: Int, api_key: String) = getResult { photoService.getPhoto(id, api_key) }
+
 }

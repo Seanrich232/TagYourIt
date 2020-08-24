@@ -5,9 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.rickandmorty.utils.autoCleared
+import com.example.tagyourit.R
 import com.example.tagyourit.databinding.FragmentPhotoSearchBinding
 import dagger.hilt.android.AndroidEntryPoint
 import com.example.tagyourit.utils.Resource
@@ -41,12 +44,6 @@ class PhotoSearchFragment : Fragment(), PhotoAdapter.PhotoItemListener {
         binding.rvPhoto.adapter = adapter
     }
 
-    override fun onClickedPhoto(photoId: Int) {
-        adapter = PhotoAdapter(this)
-        binding.rvPhoto.layoutManager = LinearLayoutManager(requireContext())
-        binding.rvPhoto.adapter = adapter
-    }
-
     private fun setupObservers() {
         viewModel.photos.observe(viewLifecycleOwner, { resource ->
             when (resource.status) {
@@ -60,6 +57,13 @@ class PhotoSearchFragment : Fragment(), PhotoAdapter.PhotoItemListener {
                     context?.toast(resource.message)
             }
         })
+    }
+
+    override fun onClickedPhoto(photoId: Int) {
+        findNavController().navigate(
+            R.id.action_photoSearchFragment_to_photoDetailFragment,
+            bundleOf("id" to photoId)
+        )
     }
 
 }

@@ -9,5 +9,14 @@
         android:id="@+id/photoSearchFragment"
         android:name="com.example.tagyourit.ui.photos.PhotoSearchFragment"
         android:label="fragment_photo_search"
-        tools:layout="@layout/fragment_photo_search" />
+        tools:layout="@layout/fragment_photo_search" >
+        <action
+            android:id="@+id/action_photoSearchFragment_to_photoDetailFragment"
+            app:destination="@id/photoDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/photoDetailFragment"
+        android:name="com.example.tagyourit.ui.photosdetail.PhotoDetailFragment"
+        android:label="fragment_photo_detail"
+        tools:layout="@layout/fragment_photo_detail" />
 </navigation>
