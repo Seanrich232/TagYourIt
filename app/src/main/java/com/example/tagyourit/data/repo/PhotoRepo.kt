@@ -1,5 +1,6 @@
 package com.example.tagyourit.data.repo
 
+import com.example.tagyourit.BuildConfig.API_KEY
 import com.example.tagyourit.data.api.PhotoDataSource
 import com.example.tagyourit.data.api.PhotoService
 import com.example.tagyourit.data.local.PhotoDao
@@ -14,15 +15,8 @@ class PhotoRepo @Inject constructor(
     private val localDataSource: PhotoDao
 ) {
 
-//    TODO we should be able to delete this after we confirm the api call works
-//    suspend fun getPhotos(perPage: Int, page: Int) : Resource<PhotoSearchResponse> =
-//        photoDataSource.getPhotos(10, 1)
-
     fun getPhotos(perPage: Int, page: Int) = performGetOperation (
         databaseQuery = { localDataSource.getAllPhotos() },
-        networkCall = { photoDataSource.getPhotos(10,1)}
+        networkCall = { photoDataSource.getPhotos("cats",10,1, API_KEY)}
     )
-
-
-
 }
