@@ -16,11 +16,11 @@ import com.example.tagyourit.utils.TYPE
 class PhotoAdapter(private val listener: PhotoItemListener) :
     RecyclerView.Adapter<PhotoViewHolder>() {
 
-    private val items: MutableList<Photo> = mutableListOf()
-
     interface PhotoItemListener {
         fun onClickedPhoto(photoId: Int?)
     }
+
+    private val items: MutableList<Photo> = mutableListOf()
 
     fun setPhotos(photos: MutableList<Photo>) {
         this.items.clear()

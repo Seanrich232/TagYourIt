@@ -55,7 +55,7 @@ class PhotoSearchFragment : Fragment(), PhotoAdapter.PhotoItemListener {
     }
 
     private fun setupObservers() {
-        viewModel.photos.observe(viewLifecycleOwner, Observer { resource ->
+        viewModel.photos.observe(viewLifecycleOwner, { resource ->
             when (resource.status) {
                 Resource.Status.SUCCESS -> {
                     if (!resource.data.isNullOrEmpty()) adapter.setPhotos(ArrayList(resource.data))
@@ -63,6 +63,8 @@ class PhotoSearchFragment : Fragment(), PhotoAdapter.PhotoItemListener {
                 Resource.Status.ERROR -> {
                     context?.toast(resource.message)
                 }
+                Resource.Status.LOADING ->
+                    context?.toast(resource.message)
             }
         })
     }
