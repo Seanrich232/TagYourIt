@@ -14,7 +14,7 @@ import com.example.tagyourit.databinding.PhotoItemBinding
 import com.example.tagyourit.utils.TYPE
 
 class PhotoAdapter(private val listener: PhotoItemListener) :
-    RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder>() {
+    RecyclerView.Adapter<PhotoViewHolder>() {
 
     private val items: MutableList<Photo> = mutableListOf()
 
@@ -28,51 +28,43 @@ class PhotoAdapter(private val listener: PhotoItemListener) :
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):
-            PhotoViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotoViewHolder {
         val binding: PhotoItemBinding =
             PhotoItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return PhotoViewHolder(binding, listener)
     }
 
+    override fun getItemCount(): Int = items.size
+
     override fun onBindViewHolder(holder: PhotoViewHolder, position: Int) =
         holder.bind(items[position])
 
-    override fun getItemCount(): Int = items.size
+}
 
+class PhotoViewHolder(
+    private val vBind: PhotoItemBinding,
+    private val listener: PhotoAdapter.PhotoItemListener
+) : RecyclerView.ViewHolder(vBind.root),
+    View.OnClickListener {
 
-    class PhotoViewHolder(
-        private val vBind: PhotoItemBinding,
-        private val listener: PhotoAdapter.PhotoItemListener
-    ) :
-        RecyclerView.ViewHolder(vBind.root),
+    private lateinit var photo: Photo
 
-        View.OnClickListener {
+    init {
+        vBind.root.setOnClickListener(this)
+    }
 
-        private lateinit var photo: Photo
+    @SuppressLint("SetTextI18n")
+    fun bind(item: Photo) {
+        this.photo = item
+        vBind.TvPhotographer.text = item.photographer
+        Glide.with(vBind.root)
+            .load(item.url)
+            .transform(CircleCrop())
+            .into(vBind.IvPhoto)
+    }
 
-        init {
-            vBind.root.setOnClickListener(this)
-        }
-
-        @SuppressLint("SetTextI18n")
-        fun bind(item: Photo) {
-            this.photo = item
-            Glide.with(vBind.root)
-                .load(item.url)
-                .transform(CircleCrop())
-                .into(vBind.image)
-        }
-
-        fun load(photo: Photo) {
-            this.photo = photo
-            Glide.with(vBind.root)
-                .load(photo.src?.original)
-                .into(vBind.image)
-        }
-
-        override fun onClick(v: View?) {
-            listener.onClickedPhoto(photo.id)
-        }
+    override fun onClick(v: View?) {
+        listener.onClickedPhoto(photo.id)
     }
 }
+

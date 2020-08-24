@@ -18,56 +18,5 @@ class PhotoViewModel @ViewModelInject constructor(
     private val repository: PhotoRepo
 ) : ViewModel() {
 
-    val photos = repository.getPhotos(10,1)
-//    private val _photos = MutableLiveData<Resource<PhotoSearchResponse>>()
-//    val photoObservable: LiveData<Resource<PhotoSearchResponse>>
-//        get() = _photos
-//
-//    init {
-//        loadPhotos()
-//    }
-//
-//    private fun fetchPhotos(url: String = "", pageNum: Int? = null) {
-//        toggleLoading(_photos)
-//        viewModelScope.launch {
-//            val response = when{
-//                url.isNotEmpty() -> pageNum?.let { repository.getPhotos(10, 1) }
-//                else -> repository.getPhotos(10, 1)
-//            }
-//            handleResponse(_photos, response)
-//
-//        }
-//
-//    }
-//
-//    private fun loadPhotos(loadOption: LOAD? = null) {
-//        _photos.value?.data?.let {
-//            val link = when (loadOption) {
-//                LOAD.NEXT -> it.next_page
-//                else -> null
-//            }
-//            if (link != null) {
-//                fetchPhotos(link)
-//            }
-//        } ?: fetchPhotos()
-//    }
-//
-//    private fun <T> toggleLoading(mutableLiveData: MutableLiveData<Resource<T>>) {
-//        mutableLiveData.value = Resource.loading()
-//    }
-//
-//    private fun <T> handleResponse(
-//        mutableLiveData: MutableLiveData<Resource<T>>,
-//        response: Response<PhotoSearchResponse>?
-//    ) {
-//        val resource = when {
-//            response?.successWithData()!! -> Resource.success(response.body())
-//            else -> Resource.error("Something went wrong: ${response.message()}")
-//        }
-//        mutableLiveData.postValue(resource as Resource<T>?)
-//    }
-//
-//    enum class LOAD {
-//        NEXT
-//    }
+    val photos = repository.getPhotos("cats", 10,1)
 }

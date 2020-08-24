@@ -6,11 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.rickandmorty.utils.autoCleared
+import com.example.tagyourit.R
 import com.example.tagyourit.databinding.FragmentPhotoSearchBinding
 import dagger.hilt.android.AndroidEntryPoint
 import com.example.tagyourit.utils.Resource
@@ -19,7 +23,7 @@ import com.example.tagyourit.utils.extensions.toast
 @AndroidEntryPoint
 class PhotoSearchFragment : Fragment(), PhotoAdapter.PhotoItemListener {
 
-    private lateinit var binding: FragmentPhotoSearchBinding
+    private var binding: FragmentPhotoSearchBinding by autoCleared()
     private val viewModel: PhotoViewModel by viewModels()
     private lateinit var adapter: PhotoAdapter
 
@@ -54,14 +58,13 @@ class PhotoSearchFragment : Fragment(), PhotoAdapter.PhotoItemListener {
         viewModel.photos.observe(viewLifecycleOwner, Observer { resource ->
             when (resource.status) {
                 Resource.Status.SUCCESS -> {
-//                   resource.data?.photos?.let { list -> adapter.setPhotos(list as MutableList<Photo>) }
+                    if (!resource.data.isNullOrEmpty()) adapter.setPhotos(ArrayList(resource.data))
                 }
                 Resource.Status.ERROR -> {
-                    context?.toast("There was an error loading the next page")
+                    context?.toast(resource.message)
                 }
             }
         })
     }
-
 
 }

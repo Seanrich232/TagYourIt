@@ -15,7 +15,7 @@ class PhotoRepo @Inject constructor(
     private val localDataSource: PhotoDao
 ) {
 
-    fun getPhotos(perPage: Int, page: Int) = performGetOperation (
+    fun getPhotos(search: String, perPage: Int, page: Int) = performGetOperation (
         databaseQuery = { localDataSource.getAllPhotos() },
         networkCall = { photoDataSource.getPhotos("cats",10,1, API_KEY)}
     )

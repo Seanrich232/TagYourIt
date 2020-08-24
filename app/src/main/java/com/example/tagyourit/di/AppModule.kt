@@ -29,10 +29,10 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideRetrofit(moshi: Moshi): Retrofit = Retrofit.Builder()
+    fun provideRetrofit(): Retrofit = Retrofit.Builder()
         .baseUrl("https://api.pexels.com/v1/")
         .client(provideClient())
-        .addConverterFactory(MoshiConverterFactory.create())
+        .addConverterFactory(MoshiConverterFactory.create(provideMoshi()))
         .build()
 
     @Provides
