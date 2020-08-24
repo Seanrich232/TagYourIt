@@ -11,8 +11,7 @@ import kotlinx.android.parcel.Parcelize
 @JsonClass(generateAdapter = true)
 @Entity(tableName = "photos")
 data class Photo(
-    @PrimaryKey
-    val id: Int? = null,
+    @PrimaryKey val id: Int? = null,
     val width: Int? = null,
     val height: Int? = null,
     val liked: Boolean? = null,

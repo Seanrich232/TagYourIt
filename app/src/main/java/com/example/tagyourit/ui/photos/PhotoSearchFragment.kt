@@ -34,8 +34,8 @@ class PhotoSearchFragment : Fragment(), PhotoAdapter.PhotoItemListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupRecyclerView()
         setupObservers()
+        setupRecyclerView()
     }
 
     private fun setupRecyclerView() {
@@ -55,6 +55,7 @@ class PhotoSearchFragment : Fragment(), PhotoAdapter.PhotoItemListener {
                 }
                 Resource.Status.LOADING ->
                     context?.toast(resource.message)
+
             }
         })
     }
