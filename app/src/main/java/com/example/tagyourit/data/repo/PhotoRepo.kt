@@ -17,6 +17,12 @@ class PhotoRepo @Inject constructor(
 
     fun getPhotos(search: String, perPage: Int, page: Int) = performGetOperation (
         databaseQuery = { localDataSource.getAllPhotos() },
+<<<<<<< HEAD
         networkCall = { photoDataSource.getPhotos("waterfall",10,1, API_KEY)}
+=======
+        networkCall = { photoDataSource.getPhotos(search, perPage, page, API_KEY)},
+        saveCallResult = { it.photos?.let { items -> localDataSource.insertAll(items) } }
+
+>>>>>>> 6c7a3dfa417f5a1c79ea51bf36c33e9bdac3a6cb
     )
 }

@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 /build
+=======
+>>>>>>> 6c7a3dfa417f5a1c79ea51bf36c33e9bdac3a6cb
 *.iml
 .gradle
 /local.properties
@@ -9,6 +12,10 @@
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
 .DS_Store
+<<<<<<< HEAD
+=======
+/build
+>>>>>>> 6c7a3dfa417f5a1c79ea51bf36c33e9bdac3a6cb
 /buildSrc/build
 /buildSrc/.gradle
 /captures

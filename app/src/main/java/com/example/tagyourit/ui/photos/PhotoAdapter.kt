@@ -12,18 +12,18 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.example.tagyourit.data.model.Photo
 import com.example.tagyourit.databinding.PhotoItemBinding
-import com.example.tagyourit.utils.TYPE
 
 class PhotoAdapter(private val listener: PhotoItemListener) :
     RecyclerView.Adapter<PhotoViewHolder>() {
 
-    private val items: MutableList<Photo> = mutableListOf()
-
     interface PhotoItemListener {
-        fun onClickedPhoto(photoId: Int?)
+        fun onClickedPhoto(photoId: Int)
     }
 
-    fun setPhotos(photos: ArrayList<Photo>) {
+
+    private val items: MutableList<Photo> = mutableListOf()
+
+    fun setPhotos(photos: List<Photo>) {
         this.items.clear()
         this.items.addAll(photos)
         notifyDataSetChanged()
@@ -61,13 +61,13 @@ class PhotoViewHolder(
         vBind.TvPhotographer.text = item.photographer
         Log.i("PHOTOVIEWHOLDER", photo.toString())
         Glide.with(vBind.root)
-            .load(item.url)
+            .load(item.src?.small)
             .transform(CircleCrop())
             .into(vBind.IvPhoto)
     }
 
     override fun onClick(v: View?) {
-        listener.onClickedPhoto(photo.id)
+        photo.id?.let { listener.onClickedPhoto(it) }
     }
 }
 
