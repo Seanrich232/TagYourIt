@@ -1,6 +1,9 @@
 package com.example.tagyourit.ui.photos
 
 import android.annotation.SuppressLint
+import android.os.Handler
+import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +20,7 @@ class PhotoAdapter(private val listener: PhotoItemListener) :
     interface PhotoItemListener {
         fun onClickedPhoto(photoId: Int)
     }
+
 
     private val items: MutableList<Photo> = mutableListOf()
 
@@ -49,6 +53,7 @@ class PhotoViewHolder(
 
     init {
         vBind.root.setOnClickListener(this)
+
     }
 
     fun bind(item: Photo) {
