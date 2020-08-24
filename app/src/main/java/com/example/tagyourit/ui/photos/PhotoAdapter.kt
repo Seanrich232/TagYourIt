@@ -52,6 +52,7 @@ class PhotoViewHolder(
     }
 
     fun bind(item: Photo) {
+
         this.photo = item
         vBind.TvPhotographer.text = item.photographer
         vBind.IvPhoto.loadUrl(item.src?.small, 50, 50)

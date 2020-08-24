@@ -6,12 +6,13 @@ import com.example.tagyourit.R
 import com.squareup.picasso.Picasso
 
 fun ImageView.loadUrl(url: String?, width: Int, height: Int) {
+
     Picasso.with(context)
         .load(url)
         .resize(width, height)
         .centerCrop()
-        .placeholder(R.drawable.ic_launcher_foreground)
-        .error(R.drawable.ic_launcher_foreground)
+        .placeholder(R.drawable.pexels)
+        .error(R.drawable.error)
         .into(this)
 }
 
