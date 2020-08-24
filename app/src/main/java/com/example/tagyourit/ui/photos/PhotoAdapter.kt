@@ -1,8 +1,6 @@
 package com.example.tagyourit.ui.photos
 
 import android.annotation.SuppressLint
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,18 +9,17 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.example.tagyourit.data.model.Photo
 import com.example.tagyourit.databinding.PhotoItemBinding
-import com.example.tagyourit.utils.TYPE
 
 class PhotoAdapter(private val listener: PhotoItemListener) :
     RecyclerView.Adapter<PhotoViewHolder>() {
 
     interface PhotoItemListener {
-        fun onClickedPhoto(photoId: Int?)
+        fun onClickedPhoto(photoId: Int)
     }
 
     private val items: MutableList<Photo> = mutableListOf()
 
-    fun setPhotos(photos: MutableList<Photo>) {
+    fun setPhotos(photos: List<Photo>) {
         this.items.clear()
         this.items.addAll(photos)
         notifyDataSetChanged()
@@ -64,7 +61,7 @@ class PhotoViewHolder(
     }
 
     override fun onClick(v: View?) {
-        listener.onClickedPhoto(photo.id)
+        photo.id?.let { listener.onClickedPhoto(it) }
     }
 }
 
